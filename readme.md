@@ -4,5 +4,4 @@ from Swiggy. The script should utilise Swiggy's API to fetch this information an
 data in a structured CSV format.
 
 ## API Endpoint
-https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&comple
-te-menu=true&lat=18.56&lng=73.95&restaurantId=<restaurant_id>
+https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=18.56&lng=73.95&restaurantId=<restaurant_id>
