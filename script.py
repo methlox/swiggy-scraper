@@ -18,3 +18,7 @@ response = requests.get(url, headers = headers)
 # Error Handling
 if response.status_code != 200:
     raise Exception('Failed to load page {}'.format(url))
+
+# BeautifulSoup to parse through the page content
+page_contents= response.text
+doc = BeautifulSoup(page_contents, 'html.parser')
