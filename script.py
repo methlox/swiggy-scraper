@@ -28,4 +28,10 @@ name_tag= doc.find_all('div', {'class': 'name'})
 names=[]
 for tag in name_tag:
     names.append(tag.text)
-    
+
+# Dictionary and CSV creation
+name_dict = {
+    'name': names
+}
+df = pd.DataFrame(name_dict)
+df.to_csv('name.csv', index = None)
