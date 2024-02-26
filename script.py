@@ -22,3 +22,10 @@ if response.status_code != 200:
 # BeautifulSoup to parse through the page content
 page_contents= response.text
 doc = BeautifulSoup(page_contents, 'html.parser')
+
+# Relevant data
+name_tag= doc.find_all('div', {'class': 'name'})
+names=[]
+for tag in name_tag:
+    names.append(tag.text)
+    
