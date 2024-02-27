@@ -21,7 +21,10 @@ https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&la
     py .\script.py
 ```
 
-You'll see a `data.csv` file in your local file system after the script runs succesfully
+- Upon running the script, you'll be asked for a restaurant ID.
+- You can use "37968" as an example Restaurant ID
+- To find additional restaurant_ids, visit the Swiggy website, navigate to any restaurant's page, and note the restaurant_id at the end of the URL.
+- You'll see a `data.csv` file in your local file system after the script runs succesfully
 
 # User Requirements
 
