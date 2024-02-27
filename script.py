@@ -71,7 +71,6 @@ try:
     for c in range(12, 17):
         for cards in data['data']['cards'][4]['groupedCard']['cardGroupMap']['REGULAR']['cards'][c]['card']['card']['itemCards']:
             categories.append(cards['card']['info']['category'])
-            
 
     # A Dictionary for storing all the required data  
     dict = {
