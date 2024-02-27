@@ -14,77 +14,81 @@ user_input = input("Enter restaurant id: ")
 # Final URL
 url = base_url + user_input
 
-# Response
-response = requests.request("GET", url, headers = headers)
+try:
+    # Response
+    response = requests.request("GET", url, headers = headers)
 
-# Error Handling
-if response.status_code != 200:
-    raise Exception('Failed to load page {}'.format(url))
+    # Coverting the Response to JSON Format
+    data=response.json()
 
-# Coverting the Response to JSON Format
-data=response.json()
+    # Names Dictionary
+    names=[]
 
-# Names Dictionary
-names=[]
+    # Fetch Names
+    # Only the 11th entry in response is coded differently so a different logic is required to fetch it's name
+    for c in range(1, 11):
+        for cards in data['data']['cards'][4]['groupedCard']['cardGroupMap']['REGULAR']['cards'][c]['card']['card']['itemCards']:
+            names.append(cards['card']['info']['name'])
+            
+    for cards in data['data']['cards'][4]['groupedCard']['cardGroupMap']['REGULAR']['cards'][11]['card']['card']['categories']:
+        for items in cards['itemCards']:
+            names.append(items['card']['info']['name'])
+            
+    for c in range(12, 17):
+        for cards in data['data']['cards'][4]['groupedCard']['cardGroupMap']['REGULAR']['cards'][c]['card']['card']['itemCards']:
+            names.append(cards['card']['info']['name'])
+            
+    # Prices Dictionary
+    prices=[]
 
-# Fetch Names
-# Only the 11th entry in response is coded differently so a different logic is required to fetch it's name
-for c in range(1, 11):
-    for cards in data['data']['cards'][4]['groupedCard']['cardGroupMap']['REGULAR']['cards'][c]['card']['card']['itemCards']:
-        names.append(cards['card']['info']['name'])
+    # Fetch Price
+    # Only the 11th entry in response is coded differently so a different logic is required to fetch it's price
+    for c in range(1, 11):
+        for cards in data['data']['cards'][4]['groupedCard']['cardGroupMap']['REGULAR']['cards'][c]['card']['card']['itemCards']:
+            prices.append(cards['card']['info']['price'])
+            
+    for cards in data['data']['cards'][4]['groupedCard']['cardGroupMap']['REGULAR']['cards'][11]['card']['card']['categories']:
+        for items in cards['itemCards']:
+            prices.append(items['card']['info']['price'])
+            
+    for c in range(12, 17):
+        for cards in data['data']['cards'][4]['groupedCard']['cardGroupMap']['REGULAR']['cards'][c]['card']['card']['itemCards']:
+            prices.append(cards['card']['info']['price'])
+
+    # Categories Dictionary
+    categories=[]
+
+    # Fetch Categories
+    # Only the 11th entry in response is coded differently so a different logic is required to fetch it's Category
+    for c in range(1, 11):
+        for cards in data['data']['cards'][4]['groupedCard']['cardGroupMap']['REGULAR']['cards'][c]['card']['card']['itemCards']:
+            categories.append(cards['card']['info']['category'])
+            
+    for cards in data['data']['cards'][4]['groupedCard']['cardGroupMap']['REGULAR']['cards'][11]['card']['card']['categories']:
+        for items in cards['itemCards']:
+            categories.append(items['card']['info']['category'])
+            
+    for c in range(12, 17):
+        for cards in data['data']['cards'][4]['groupedCard']['cardGroupMap']['REGULAR']['cards'][c]['card']['card']['itemCards']:
+            categories.append(cards['card']['info']['category'])
+            
+
+    # A Dictionary for storing all the required data  
+    dict = {
+        'name': names,
+        'prices': prices,
+        'category': categories
+        }
         
-for cards in data['data']['cards'][4]['groupedCard']['cardGroupMap']['REGULAR']['cards'][11]['card']['card']['categories']:
-    for items in cards['itemCards']:
-        names.append(items['card']['info']['name'])
-        
-for c in range(12, 17):
-    for cards in data['data']['cards'][4]['groupedCard']['cardGroupMap']['REGULAR']['cards'][c]['card']['card']['itemCards']:
-        names.append(cards['card']['info']['name'])
-        
-# Prices Dictionary
-prices=[]
+    # Using pandas dataframe     
+    df = pd.DataFrame(dict)
 
-# Fetch Price
-# Only the 11th entry in response is coded differently so a different logic is required to fetch it's price
-for c in range(1, 11):
-    for cards in data['data']['cards'][4]['groupedCard']['cardGroupMap']['REGULAR']['cards'][c]['card']['card']['itemCards']:
-        prices.append(cards['card']['info']['price'])
-        
-for cards in data['data']['cards'][4]['groupedCard']['cardGroupMap']['REGULAR']['cards'][11]['card']['card']['categories']:
-    for items in cards['itemCards']:
-        prices.append(items['card']['info']['price'])
-        
-for c in range(12, 17):
-    for cards in data['data']['cards'][4]['groupedCard']['cardGroupMap']['REGULAR']['cards'][c]['card']['card']['itemCards']:
-        prices.append(cards['card']['info']['price'])
-
-# Categories Dictionary
-categories=[]
-
-# Fetch Categories
-# Only the 11th entry in response is coded differently so a different logic is required to fetch it's Category
-for c in range(1, 11):
-    for cards in data['data']['cards'][4]['groupedCard']['cardGroupMap']['REGULAR']['cards'][c]['card']['card']['itemCards']:
-        categories.append(cards['card']['info']['category'])
-        
-for cards in data['data']['cards'][4]['groupedCard']['cardGroupMap']['REGULAR']['cards'][11]['card']['card']['categories']:
-    for items in cards['itemCards']:
-        categories.append(items['card']['info']['category'])
-        
-for c in range(12, 17):
-    for cards in data['data']['cards'][4]['groupedCard']['cardGroupMap']['REGULAR']['cards'][c]['card']['card']['itemCards']:
-        categories.append(cards['card']['info']['category'])
-        
-
-# A Dictionary for storing all the required data  
-dict = {
-    'name': names,
-    'prices': prices,
-    'category': categories
-    }
-      
-# Using pandas dataframe     
-df = pd.DataFrame(dict)
-
-# Create final csv file
-df.to_csv('data.csv', index = None)
+    # Create final csv file
+    df.to_csv('data.csv', index = None)
+    
+except requests.exceptions.RequestException as e:
+    # Handle connection errors, timeouts, and other request-related exceptions
+    print(f"Request failed: {e}")
+except Exception as e:
+    # Handle other unexpected exceptions
+    print(f"An unexpected error occurred: {e}")
