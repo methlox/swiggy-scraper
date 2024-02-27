@@ -6,7 +6,13 @@ import requests
 headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'}
 
 # URL for Scraping
-url= 'https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=18.56&lng=73.95&restaurantId=37968'
+base_url= 'https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=18.56&lng=73.95&restaurantId='
+
+# Take user input
+user_input = input("Enter restaurant id: ")
+
+# Final URL
+url = base_url + user_input
 
 # Response
 response = requests.request("GET", url, headers = headers)
@@ -69,16 +75,16 @@ for c in range(12, 17):
     for cards in data['data']['cards'][4]['groupedCard']['cardGroupMap']['REGULAR']['cards'][c]['card']['card']['itemCards']:
         categories.append(cards['card']['info']['category'])
         
-# print(categories)
 
-#creating dictionary    
+# A Dictionary for storing all the required data  
 dict = {
     'name': names,
     'prices': prices,
     'category': categories
     }
       
-#puuting DataFrame      
+# Using pandas dataframe     
 df = pd.DataFrame(dict)
-#creating csv file
-df.to_csv('page.csv', index = None)
+
+# Create final csv file
+df.to_csv('data.csv', index = None)
