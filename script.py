@@ -38,8 +38,8 @@ for c in range(12, 17):
 # Prices Dictionary
 prices=[]
 
-# Fetch Names
-# Only the 11th entry in response is coded differently so a different logic is required to fetch it's name
+# Fetch Price
+# Only the 11th entry in response is coded differently so a different logic is required to fetch it's price
 for c in range(1, 11):
     for cards in data['data']['cards'][4]['groupedCard']['cardGroupMap']['REGULAR']['cards'][c]['card']['card']['itemCards']:
         prices.append(cards['card']['info']['price'])
@@ -52,5 +52,21 @@ for c in range(12, 17):
     for cards in data['data']['cards'][4]['groupedCard']['cardGroupMap']['REGULAR']['cards'][c]['card']['card']['itemCards']:
         prices.append(cards['card']['info']['price'])
 
+# Categories Dictionary
+categories=[]
 
-print(prices)
+# Fetch Categories
+# Only the 11th entry in response is coded differently so a different logic is required to fetch it's Category
+for c in range(1, 11):
+    for cards in data['data']['cards'][4]['groupedCard']['cardGroupMap']['REGULAR']['cards'][c]['card']['card']['itemCards']:
+        categories.append(cards['card']['info']['category'])
+        
+for cards in data['data']['cards'][4]['groupedCard']['cardGroupMap']['REGULAR']['cards'][11]['card']['card']['categories']:
+    for items in cards['itemCards']:
+        categories.append(items['card']['info']['category'])
+        
+for c in range(12, 17):
+    for cards in data['data']['cards'][4]['groupedCard']['cardGroupMap']['REGULAR']['cards'][c]['card']['card']['itemCards']:
+        categories.append(cards['card']['info']['category'])
+        
+print(categories)
