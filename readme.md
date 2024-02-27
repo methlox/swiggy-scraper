@@ -13,12 +13,13 @@ https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&la
 ### Python Installed:
 
 Ensure that Python is installed on the system. You can download and install Python from the official website: https://www.python.org/
-Package Installation:
 
-### Install the required packages (pandas and requests) using the following commands in the terminal or command prompt:
+### Package Installation:
 
-```pip install pandas
-pip install requests
+Install the required packages (pandas and requests) using the following commands in the terminal or command prompt:
+
+``` pip install pandas
+    pip install requests
 ```
 
 ### Internet Connection:
