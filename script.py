@@ -10,28 +10,24 @@ import re
 headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'}
 
 # URL for Scraping
-url= 'https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=18.56&lng=73.95&restaurantId=<restaurant_id>'
+url= 'https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=18.56&lng=73.95&restaurantId=37968'
+
+res=[]
 
 # Response
-response = requests.get(url, headers = headers)
+response = requests.request("GET", url, headers = headers)
 
 # Error Handling
 if response.status_code != 200:
     raise Exception('Failed to load page {}'.format(url))
 
-# BeautifulSoup to parse through the page content
-page_contents= response.text
-doc = BeautifulSoup(page_contents, 'html.parser')
+data=response.json()
 
-# Relevant data
-name_tag= doc.find_all('div', {'class': 'name'})
-names=[]
-for tag in name_tag:
-    names.append(tag.text)
+# for p in data['data']['cards'][4]['groupedCard']['cardGroupMap']['REGULAR']['cards'][1]['card']['card']['itemCards'][0]['card']['info']['name']:
+#     res.append(p)
 
-# Dictionary and CSV creation
-name_dict = {
-    'name': names
-}
-df = pd.DataFrame(name_dict)
-df.to_csv('name.csv', index = None)
+res.append(data['data']['cards'][4]['groupedCard']['cardGroupMap']['REGULAR']['cards'][1]['card']['card']['itemCards'][0]['card']['info']['name'])
+
+
+
+print(res)
