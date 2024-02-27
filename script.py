@@ -69,4 +69,16 @@ for c in range(12, 17):
     for cards in data['data']['cards'][4]['groupedCard']['cardGroupMap']['REGULAR']['cards'][c]['card']['card']['itemCards']:
         categories.append(cards['card']['info']['category'])
         
-print(categories)
+# print(categories)
+
+#creating dictionary    
+dict = {
+    'name': names,
+    'prices': prices,
+    'category': categories
+    }
+      
+#puuting DataFrame      
+df = pd.DataFrame(dict)
+#creating csv file
+df.to_csv('page.csv', index = None)
