@@ -16,6 +16,7 @@ https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&la
 
 ```bash
     git clone git@github.com:methlox/swiggy-scraper.git
+    cd swigy-scraper
     pip install requests
     pip install pandas
     py .\script.py
