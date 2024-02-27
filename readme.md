@@ -8,6 +8,21 @@ data in a structured CSV format.
 
 https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=18.56&lng=73.95&restaurantId=<restaurant_id>
 
+# Running the script
+
+- Clone the repository in your local system
+- Make sure all the user requirements are met
+- Run the script
+
+```bash
+    git clone git@github.com:methlox/swiggy-scraper.git
+    pip install requests
+    pip install pandas
+    py .\script.py
+```
+
+You'll see a `data.csv` file in your local file system after the script runs succesfully
+
 # User Requirements
 
 ### Python Installed:
