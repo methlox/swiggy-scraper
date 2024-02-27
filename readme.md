@@ -21,10 +21,22 @@ https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&la
     py .\script.py
 ```
 
-- Upon running the script, you'll be asked for a restaurant ID.
+- Upon running the script, you'll be asked for a Restaurant ID.
 - You can use "37968" as an example Restaurant ID
 - To find additional restaurant_ids, visit the Swiggy website, navigate to any restaurant's page, and note the restaurant_id at the end of the URL.
 - You'll see a `data.csv` file in your local file system after the script runs succesfully
+
+# About the Script
+
+- The mentioned script uses `requests` module for fetching response from the API endpoint. The simplicity and light-weight of the module makes it an obvious choice. 
+- We also use `pandas` module for constructing a dataframe where our fetched data is coverted into CSV format
+- Initially we prompt the user for a Restaurant ID in the terminal and append the user_input into our base_url to get our final url from where all the responses will be fetched
+- We use try-exception methodology for catching connnection time-out or API requests failures and logging the details
+- After fetching all the responses, we convert them into JSON format for readability
+- We create different dictionaries for our required columnns - Name, Prices, Categories
+- Dictionaries are populated by fetching required labels from the JSON response
+- All the dictionaries are collected in `dict` which is data-framed and converted to CSV
+- We receive our final file `data.csv`
 
 # User Requirements
 
