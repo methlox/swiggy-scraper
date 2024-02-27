@@ -18,7 +18,8 @@ Ensure that Python is installed on the system. You can download and install Pyth
 
 Install the required packages (pandas and requests) using the following commands in the terminal or command prompt:
 
-``` pip install pandas
+```bash
+    pip install pandas
     pip install requests
 ```
 
